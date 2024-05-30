@@ -1,6 +1,6 @@
 const express = require('express');
 //const bodyParser = require('body-parser'); // Assuming you're using body-parser
-const Deposit = require("../model/deposit");
+const Deposit = require("../model/depositModel");
 
 async function handleUserDeposit(req, res) {
     const { name, registrationNumber, depositionRoomNumber, bucket, blanket, mattress, others } = req.body;
