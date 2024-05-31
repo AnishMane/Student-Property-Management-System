@@ -6,7 +6,7 @@ async function handleUserDeposit(req, res) {
     const { name, registrationNumber, depositionRoomNumber, bucket, blanket, mattress, others } = req.body;
 
     try {
-        await Deposit.create({
+        const userAdded = await Deposit.create({
           name,
           registrationNumber,
           depositionRoomNumber,
@@ -16,10 +16,10 @@ async function handleUserDeposit(req, res) {
           others
         });
 
-        res.json({ message: 'Deposit data saved successfully!'});
+        res.status(201).json({userAdded});
     }catch (err) {
         console.error('Error saving deposit data:', err);
-        res.status(500).json({ message: 'Error: Please try again later.' });
+        res.status(400).json({ err: err.message });
       }
     };
 

@@ -2,31 +2,77 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Deposit = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    registrationNumber: '',
-    depositionRoomNumber: '',
-    bucket: '',
-    blanket: '',
-    mattress: '',
-    others: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   name: '',
+  //   registrationNumber: '',
+  //   depositionRoomNumber: '',
+  //   bucket: 0,
+  //   blanket: 0,
+  //   mattress: 0,
+  //   others: '',
+  // });
+  const [name, setName] = useState("");
+  const [registrationNumber, setRegNo] = useState("");
+  const [depositionRoomNumber, setRoomNo] = useState("");
+  const [bucket, setBucket] = useState(0);
+  const [blanket, setBlanket] = useState(0);
+  const [mattress, setMattress] = useState(0);
+  const [others, setOthers] = useState("");
+  const [error,setError] = useState("");
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    // Implement your form submission logic here (e.g., send data to server)
-    console.log('Form data:', formData); // Example logging for development
-  };
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); 
+    const addUser = {
+      name,
+      registrationNumber,
+      depositionRoomNumber,
+      bucket,
+      blanket ,
+      mattress ,
+      others, 
+    };
+    const response = await fetch("http://localhost:5000", {
+            method: "POST",
+            body: JSON.stringify(addUser),
+            headers:{
+                "Content-Type": "application/json",
+            }
+        });
+    const result = await response.json();
+
+    if(!response.ok)
+        {
+                console.log(result.error);
+                setError(result.error)
+        }
+    else{
+                console.log(result);
+                setError("");
+                setName("");
+                setRegNo("");
+                setRoomNo("");
+                setBucket(0);
+                setBlanket(0);
+                setMattress(0);
+                setOthers("");
+        
+  }
+}
 
   return (
+  <div className='container my-2'>
+  {error && <div class="alert alert-danger" >
+  {error}
+</div>}
     <div style={{
         backgroundImage: 'url("./pic.jpg")',
         backgroundSize: 'cover',
@@ -45,8 +91,8 @@ const Deposit = () => {
           type="text"
           id="name"
           name="name"
-          value={formData.name}
-          onChange={handleChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
         />
         <br />
@@ -56,8 +102,8 @@ const Deposit = () => {
           type="text"
           id="registrationNumber"
           name="registrationNumber"
-          value={formData.registrationNumber}
-          onChange={handleChange}
+          value={registrationNumber}
+          onChange={(e) => setRegNo(e.target.value)}
           required
         />
         <br />
@@ -67,8 +113,8 @@ const Deposit = () => {
           type="text"
           id="depositionRoomNumber"
           name="depositionRoomNumber"
-          value={formData.depositionRoomNumber}
-          onChange={handleChange}
+          value={depositionRoomNumber}
+          onChange={(e) => setRoomNo(e.target.value)}
           required
         />
         <br />
@@ -81,8 +127,8 @@ const Deposit = () => {
           type="text" // Changed to text input
           id="bucket"
           name="bucket"
-          value={formData.bucket}
-          onChange={handleChange}
+          value={bucket}
+          onChange={(e) => setBucket(e.target.value)}
            placeholder="Enter Number of Buckets"
         />
         <br />
@@ -92,8 +138,8 @@ const Deposit = () => {
           type="text" // Changed to text input
           id="blanket"
           name="blanket"
-          value={formData.blanket}
-          onChange={handleChange}
+          value={blanket}
+          onChange={(e) => setBlanket(e.target.value)}
           placeholder="Enter Number of Blankets"
         />
         <br />
@@ -103,8 +149,8 @@ const Deposit = () => {
           type="text" // Changed to text input
           id="mattress"
           name="mattress"
-          value={formData.mattress}
-          onChange={handleChange}
+          value={mattress}
+          onChange={(e) => setMattress(e.target.value)}
           placeholder="Enter Number of Mattresses"
         />
         <br />
@@ -114,8 +160,8 @@ const Deposit = () => {
           type="text"
           id="others"
           name="others"
-          value={formData.others}
-          onChange={handleChange}
+          value={others}
+          onChange={(e) => setOthers(e.target.value)}
           placeholder='Enter Your Other Articles'
         />
         <br />
@@ -123,6 +169,7 @@ const Deposit = () => {
         <button type="submit">Submit Deposit</button>
       </form>
     </div>
+  </div>
   );
 };
 

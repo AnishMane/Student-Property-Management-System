@@ -2,6 +2,9 @@ const express=require('express');
 const app=express();
 const depositRouter=require('./src/routes/adminRoutes');
 const enquiryRouter=require('./src/routes/studentRoutes');
+const cors = require('cors');
+
+app.use(cors());
 
 //Middleware
 

@@ -2,31 +2,47 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Assuming you have a separate searchItems function
-function searchItems(registrationNumber) {
-  // Implement your search logic here using the registrationNumber
-  // This could involve making an API call to your backend or performing a local search
-  console.log('Searching for registration number:', registrationNumber); // Example logging
-}
+// function searchItems(registrationNumber) {
+//   // Implement your search logic here using the registrationNumber
+//   // This could involve making an API call to your backend or performing a local search
+//   console.log('Searching for registration number:', registrationNumber); // Example logging
+// }
 
 const Receive = () => {
-  const [formData, setFormData] = useState();
+ 
+  const [registrationNumber, setRegNo] = useState("");
+  const [error,setError] = useState("");
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    
-    // Call your search function with the registration number from formData
-    // searchItems(formData.registrationNumber);
+    const registrationNumber = "some_registration_number"; // Ensure this is defined or passed correctly
 
-    // You can optionally clear the form or display a success message here
-  };
+    try {
+        const response = await fetch(`http://localhost:5000/user?registrationNumber=${registrationNumber}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            console.log(result.error);
+            setError(result.error); // Make sure setError is defined in your component
+        } else {
+            console.log(result);
+            setError(""); // Clear any previous error
+            setRegNo(""); // Reset registration number if needed
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        setError("An unexpected error occurred."); // Handle any unexpected errors
+    }
+};
+
+
 
   return (
     <div >
@@ -45,8 +61,8 @@ const Receive = () => {
           type="text"
           id="registrationNumber"
           name="registrationNumber"
-          value={formData.registrationNumber}
-          onChange={handleChange}
+          value={registrationNumber}
+          onChange={(e) => {setRegNo(e.target.value)}}
           required
         />
         <br />

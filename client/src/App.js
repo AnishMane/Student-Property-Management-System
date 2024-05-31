@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Student from './Pages/Student';
 import Admin from './Pages/Admin' ;
@@ -10,7 +10,7 @@ import Receive from './Pages/Receive';
 
 function App() {
   return (
-    <Router>
+  <BrowserRouter>
       <div className="App">
         
         <Navbar />
@@ -25,7 +25,7 @@ function App() {
 
 
       </div>
-    </Router>
+  </BrowserRouter>
   );
 }
 
