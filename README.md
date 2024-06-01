@@ -1,11 +1,18 @@
 # 🏫 UniStorage: Student Property Management System
 
 ## Table of Contents
+- [Preview](#preview)
 - [About The Project](#about-the-project)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Contributing](#contributing)
 - [Contact](#contact)
+
+## Preview
+
+
+https://github.com/AnishMane/UniStorage/assets/112772218/a88ae0d8-ea94-44bb-97e2-e59eacbee218
+
 
 ## About The Project
 ### Overview
