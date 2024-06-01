@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 
 const Deposit = () => {
   // const [formData, setFormData] = useState({
@@ -11,6 +11,7 @@ const Deposit = () => {
   //   mattress: 0,
   //   others: '',
   // });
+
   const [name, setName] = useState("");
   const [registrationNumber, setRegNo] = useState("");
   const [depositionRoomNumber, setRoomNo] = useState("");
@@ -40,7 +41,9 @@ const Deposit = () => {
       mattress ,
       others, 
     };
-    const response = await fetch("http://localhost:5000", {
+
+    console.log(addUser);
+    const response = await fetch("http://localhost:5000/admin/deposit", {
             method: "POST",
             body: JSON.stringify(addUser),
             headers:{
@@ -55,8 +58,8 @@ const Deposit = () => {
                 setError(result.error)
         }
     else{
-                console.log(result);
-                setError("");
+      console.log(result);      
+      setError("");
                 setName("");
                 setRegNo("");
                 setRoomNo("");
@@ -64,7 +67,6 @@ const Deposit = () => {
                 setBlanket(0);
                 setMattress(0);
                 setOthers("");
-        
   }
 }
 

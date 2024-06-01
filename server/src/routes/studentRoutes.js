@@ -9,6 +9,6 @@ app.use(express.static('../'));
 // Mount the router with the '/enquiry' prefix
 app.use('/stud', router);
 
-router.get('/enquiry',getUserDetailsByRegistrationNumber);
+router.get('/enquiry/:registrationNumber',getUserDetailsByRegistrationNumber);
 
 module.exports=router;

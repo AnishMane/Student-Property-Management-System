@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './styles.css'; // Assuming style.css is in the same directory
+
 
 // Assuming you have a separate searchItems function
 // function searchItems(registrationNumber) {
@@ -12,14 +14,15 @@ const Receive = () => {
  
   const [registrationNumber, setRegNo] = useState("");
   const [error,setError] = useState("");
+  const [searchResult, setSearchResult] = useState(null); // State to store search result
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const registrationNumber = "some_registration_number"; // Ensure this is defined or passed correctly
+    
 
     try {
-        const response = await fetch(`http://localhost:5000/user?registrationNumber=${registrationNumber}`, {
+        const response = await fetch(`http://localhost:5000/stud/enquiry/${registrationNumber}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -32,9 +35,9 @@ const Receive = () => {
             console.log(result.error);
             setError(result.error); // Make sure setError is defined in your component
         } else {
+          //window.location.href= 'Deposit';
             console.log(result);
-            setError(""); // Clear any previous error
-            setRegNo(""); // Reset registration number if needed
+            setSearchResult(result); // Update search result state
         }
     } catch (error) {
         console.error("Error:", error);
@@ -42,6 +45,7 @@ const Receive = () => {
     }
 };
 
+// Rest of your component code, including searchResult and table definition
 
 
   return (
@@ -69,6 +73,58 @@ const Receive = () => {
 
         <button type="submit" >Search Student</button>
       </form>
+
+      
+      {/* Conditionally render the table based on searchResult */}
+      {searchResult && ( // Check if searchResult exists
+        <table>
+        <thead>
+        <tr>
+          {/* Dynamically generate table headers based on result object keys */}
+          {Object.keys(searchResult)
+            // Filter out the "_id" key before mapping
+            .filter((key) => key !== '_id')
+            .filter((key) => key !== '__v')
+            .map((key) => {
+              // Use a dictionary to map specific keys to desired header names
+              const headerNameMap = {
+                name: 'Name',
+                registrationNumber: 'Registration Number',
+                depositionRoomNumber: 'Room Number',
+                bucket: 'Bucket',
+                blanket: 'Blanket',
+                mattress: 'Mattress',
+                others: 'Other Belongings',
+              };
+
+              // Use the dictionary lookup or fallback to the original key
+              return (
+                <th key={key}>
+                  {headerNameMap[key] || key}
+                </th>
+              );
+            })}
+        </tr>
+
+
+
+        </thead>
+        <tbody>
+        <tr>
+          {/* Dynamically generate table cells based on result object values */}
+          {Object.values(searchResult)
+            // Filter out the "_id" and "__v" values before mapping
+            .filter((value, index) => Object.keys(searchResult)[index] !== '_id' && Object.keys(searchResult)[index] !== '__v')
+            .map((value) => (
+              <td key={value}>{value}</td>
+            ))}
+        </tr>
+
+        </tbody>
+      </table>
+
+)}
+
       </div>
     </div>
   );

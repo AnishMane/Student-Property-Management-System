@@ -1,0 +1,31 @@
+/* Style the table element */
+table {
+    border-collapse: collapse;
+    width: 100%; /* Adjust width as needed */
+    margin-top: 20px; /* Add some space above the table */
+  }
+  
+  /* Style the table header (thead) */
+  thead {
+    background-color: #f1f1f1; /* Add a light gray background for the header */
+  }
+  
+  /* Style the table header cells (th) */
+  th {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left; /* Align table headers to the left */
+    font-weight: bold;
+  }
+  
+  /* Style the table body (tbody) */
+  tbody {
+    background-color: #fff; /* White background for the body */
+  }
+  
+  /* Style the table body cells (td) */
+  td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
