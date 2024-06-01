@@ -16,6 +16,10 @@ https://github.com/AnishMane/UniStorage/assets/112772218/a88ae0d8-ea94-44bb-97e2
 
 ## About The Project
 ### Overview
+
+***UniStorage was developed in a 12-hour hackathon held by Vellore Institute of Technology.***
+
+
 UniStorage is a comprehensive student property management system developed using the MERN stack (MongoDB, Express.js, React, and Node.js). This project aims to streamline the management, tracking, and allocation of student-owned properties such as mattresses, blankets, buckets, and other essential items within a campus or student housing environment. The system is designed to be user-friendly, efficient, and scalable, catering to the needs of both students and administrators.
 
 ### Objectives
