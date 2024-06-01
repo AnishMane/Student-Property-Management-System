@@ -1,14 +1,12 @@
 const Deposit = require("../model/depositModel");
 
 async function getUserDetailsByRegistrationNumber(req,res) {
-
-    const {registrationNumber} =req.body;
-    console.log(registrationNumber);
+     
+    const {registrationNumber} =req.params;
 
     try {
       // Fetch the user document using findOne() with a filter on registrationNumber
       const user = await Deposit.findOne({ registrationNumber });
-      console.log(user);
   
       // Check if a user is found
       if (!user) {
